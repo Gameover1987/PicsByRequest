@@ -11,12 +11,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow()
         self.window = window
         
-        
-        let picsController = PicsByRequestController();
+        let viewModel = PicsByRequestViewModel(picsProvider: InternetPicsProvider.shared)
+        let picsController = PicsByRequestController(viewModel: viewModel);
         picsController.tabBarItem.title = "Pics"
+        picsController.tabBarItem.image = UIImage(named: "Gallery")
         
         let favoritesController = FavoritePicsViewController();
         favoritesController.tabBarItem.title = "Favotites"
+        favoritesController.tabBarItem.image = UIImage(named: "Star")
         
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([picsController, favoritesController], animated: false)

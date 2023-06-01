@@ -1,8 +1,13 @@
-//
-//  Models.swift
-//  PicsByRequest
-//
-//  Created by Вячеслав on 01.06.2023.
-//
 
 import Foundation
+
+struct ImageResponse {
+    var text: String
+    
+    var imageData: Data
+}
+
+enum ApiErrors : String, Error {
+    case dataIsNil = "Data is nil!"
+    case jsonParseError = "JSON parse error"
+}

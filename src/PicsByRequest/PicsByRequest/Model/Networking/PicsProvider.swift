@@ -1,8 +1,6 @@
-//
-//  PicsProvider.swift
-//  PicsByRequest
-//
-//  Created by Вячеслав on 01.06.2023.
-//
 
 import Foundation
+
+protocol PicsProviderProtocol {
+    func requestPicture(by text: String, completion: @escaping(Result<ImageResponse, Error>) -> Void)
+}
