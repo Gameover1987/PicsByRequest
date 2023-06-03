@@ -14,6 +14,11 @@
 		8045FD9C2A2B460600CD731B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045FD9B2A2B460600CD731B /* UIView.swift */; };
 		806DBD732A2B68E100CDC9E9 /* MockPicsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806DBD722A2B68E100CDC9E9 /* MockPicsProvider.swift */; };
 		806DBD762A2B6ABA00CDC9E9 /* MockFavoriteStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806DBD752A2B6ABA00CDC9E9 /* MockFavoriteStorage.swift */; };
+		80CFD7DD2A2BA3CC005F81DA /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFD7DC2A2BA3CC005F81DA /* NetworkConfiguration.swift */; };
+		80CFD7DF2A2BA44A005F81DA /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFD7DE2A2BA44A005F81DA /* HTTPClient.swift */; };
+		80CFD7E12A2BA48F005F81DA /* URLSession+MainQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFD7E02A2BA48F005F81DA /* URLSession+MainQueue.swift */; };
+		80CFD7E32A2BA4B1005F81DA /* SeededURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFD7E22A2BA4B1005F81DA /* SeededURLSession.swift */; };
+		80CFD7E62A2BA991005F81DA /* TestImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 80CFD7E52A2BA991005F81DA /* TestImage.png */; };
 		80EBD01F2A28BA870050A710 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EBD01E2A28BA870050A710 /* AppDelegate.swift */; };
 		80EBD0292A28BA870050A710 /* PicsByRequest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80EBD0272A28BA870050A710 /* PicsByRequest.xcdatamodeld */; };
 		80EBD02B2A28BA890050A710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80EBD02A2A28BA890050A710 /* Assets.xcassets */; };
@@ -58,6 +63,11 @@
 		8045FD9B2A2B460600CD731B /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		806DBD722A2B68E100CDC9E9 /* MockPicsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPicsProvider.swift; sourceTree = "<group>"; };
 		806DBD752A2B6ABA00CDC9E9 /* MockFavoriteStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFavoriteStorage.swift; sourceTree = "<group>"; };
+		80CFD7DC2A2BA3CC005F81DA /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
+		80CFD7DE2A2BA44A005F81DA /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		80CFD7E02A2BA48F005F81DA /* URLSession+MainQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+MainQueue.swift"; sourceTree = "<group>"; };
+		80CFD7E22A2BA4B1005F81DA /* SeededURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededURLSession.swift; sourceTree = "<group>"; };
+		80CFD7E52A2BA991005F81DA /* TestImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TestImage.png; sourceTree = "<group>"; };
 		80EBD01B2A28BA870050A710 /* PicsByRequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicsByRequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80EBD01E2A28BA870050A710 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80EBD0282A28BA870050A710 /* PicsByRequest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PicsByRequest.xcdatamodel; sourceTree = "<group>"; };
@@ -140,6 +150,25 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		80CFD7DB2A2BA3A3005F81DA /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				80CFD7DC2A2BA3CC005F81DA /* NetworkConfiguration.swift */,
+				80CFD7DE2A2BA44A005F81DA /* HTTPClient.swift */,
+				80CFD7E02A2BA48F005F81DA /* URLSession+MainQueue.swift */,
+				80CFD7E22A2BA4B1005F81DA /* SeededURLSession.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		80CFD7E42A2BA925005F81DA /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				80CFD7E52A2BA991005F81DA /* TestImage.png */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		80EBD0122A28BA870050A710 = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +216,7 @@
 		80EBD0412A28BA890050A710 /* PicsByRequestUITests */ = {
 			isa = PBXGroup;
 			children = (
+				80CFD7E42A2BA925005F81DA /* Mocks */,
 				80EBD0422A28BA890050A710 /* PicsByRequestUITests.swift */,
 				80EBD0442A28BA890050A710 /* PicsByRequestUITestsLaunchTests.swift */,
 			);
@@ -205,6 +235,7 @@
 		80EBD0522A28BBFE0050A710 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				80CFD7DB2A2BA3A3005F81DA /* Configuration */,
 				80EBD0612A28C8C60050A710 /* PicsProviderProtocol.swift */,
 				80EBD0652A28D1770050A710 /* InternetPicsProvider.swift */,
 				80EBD0672A28D1AB0050A710 /* Models.swift */,
@@ -372,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80CFD7E62A2BA991005F81DA /* TestImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,10 +419,14 @@
 				8045FD992A2B455A00CD731B /* FavoriteImageTableViewCell.swift in Sources */,
 				8045FD932A2B301700CD731B /* CoreDataPicsByRequestStorage.swift in Sources */,
 				80EBD0682A28D1AB0050A710 /* Models.swift in Sources */,
+				80CFD7DD2A2BA3CC005F81DA /* NetworkConfiguration.swift in Sources */,
 				80EBD05F2A28C2420050A710 /* Fonts.swift in Sources */,
 				80EBD0292A28BA870050A710 /* PicsByRequest.xcdatamodeld in Sources */,
 				80EBD05D2A28C11A0050A710 /* TextFieldWithPadding.swift in Sources */,
+				80CFD7E32A2BA4B1005F81DA /* SeededURLSession.swift in Sources */,
 				80EBD05B2A28BFD40050A710 /* Colors.swift in Sources */,
+				80CFD7DF2A2BA44A005F81DA /* HTTPClient.swift in Sources */,
+				80CFD7E12A2BA48F005F81DA /* URLSession+MainQueue.swift in Sources */,
 				80EBD01F2A28BA870050A710 /* AppDelegate.swift in Sources */,
 				80EBD0592A28BD0F0050A710 /* FavoritesViewController.swift in Sources */,
 				8045FD952A2B39D400CD731B /* FavoritesViewModel.swift in Sources */,
@@ -574,8 +610,7 @@
 				INFOPLIST_FILE = PicsByRequest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -602,8 +637,7 @@
 				INFOPLIST_FILE = PicsByRequest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

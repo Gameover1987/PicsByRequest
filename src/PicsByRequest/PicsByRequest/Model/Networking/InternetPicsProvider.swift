@@ -21,7 +21,7 @@ final class InternetPicsProvider : PicsProviderProtocol {
         
         let request = getRequest(by: text)
         
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+        let task = NetworkConfiguration.urlSession.dataTask(with: request) { [weak self] data, response, error in
             
             if let error = error {
                 completion(.failure(error))

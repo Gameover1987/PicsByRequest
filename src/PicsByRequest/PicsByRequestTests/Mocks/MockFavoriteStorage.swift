@@ -5,13 +5,13 @@ import Foundation
 final class MockFavoriteStorage : FavoriteStorageProtocol {
     
     
-    var favorites: [PicsByRequest.ImageByTextEntity] = []
+    var favorites: [PicsByRequest.FavoriteEntity] = []
     
     func addToFavorites(text: String, imageData: Data) {
         
     }
     
-    func removeFromFavorites(favorite: PicsByRequest.ImageByTextEntity) {
+    func removeFromFavorites(favorite: PicsByRequest.FavoriteEntity) {
         
     }
     

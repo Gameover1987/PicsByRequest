@@ -32,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.addSubview(lineView)
         
         window.rootViewController = tabBarController
+        if #available(iOS 13.0, *) {
+            window.overrideUserInterfaceStyle = .light
+        }
         window.makeKeyAndVisible()
         
         return true

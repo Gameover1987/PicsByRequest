@@ -6,6 +6,7 @@ final class PicsByRequestController : UIViewController {
     
     private lazy var searchField: UITextField = {
         let textField = TextFieldWithPadding()
+        textField.accessibilityIdentifier = "searchField"
         textField.placeholder = "Картинка по запросу"
         textField.backgroundColor = Colors.Common.textFieldBackground
         textField.keyboardType = .emailAddress
@@ -19,6 +20,7 @@ final class PicsByRequestController : UIViewController {
     
     private lazy var searchButton: UIButton = {
         let button = UIButton()
+        button.accessibilityIdentifier = "searchButton"
         button.setTitle("Search", for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
         button.titleLabel?.font = Fonts.forButtons
@@ -33,7 +35,7 @@ final class PicsByRequestController : UIViewController {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        
+        imageView.accessibilityIdentifier = "imageView"
         imageView.toAutoLayout()
         
         imageView.layer.cornerRadius = 5
@@ -124,6 +126,9 @@ final class PicsByRequestController : UIViewController {
                 guard let self = self else {return}
                 
                 if let image = UIImage(data: response.imageData) {
+                    let aaa = image.isAccessibilityElement
+                    image.isAccessibilityElement = true
+                    image.accessibilityIdentifier = "loadedImage"
                     self.imageView.image = image
                 } else {
                     self.showMessage(title: "Error data", message: "Error loading image from data!")
