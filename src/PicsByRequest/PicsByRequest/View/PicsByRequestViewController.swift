@@ -82,6 +82,9 @@ final class PicsByRequestController : UIViewController {
         view.backgroundColor = Colors.Common.background
         
         self.viewModel.pictureLoadedAction = pictureLoadedAction(response:)
+        self.viewModel.errorAction = { [weak self] error in
+            self?.showMessage(title: "Error", message: error.localizedDescription)
+        }
         
         setupConstraints()
         
@@ -117,14 +120,17 @@ final class PicsByRequestController : UIViewController {
         DispatchQueue.global().async { [weak self] in
             self?.currrentResponse = response
             
-            if let image = UIImage(data: response.imageData) {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else {return}
-                    
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                
+                if let image = UIImage(data: response.imageData) {
                     self.imageView.image = image
-                    self.activityIndicator.stopAnimating()
-                    self.addToFavoritesButton.isEnabled = self.currrentResponse != nil
+                } else {
+                    self.showMessage(title: "Error data", message: "Error loading image from data!")
                 }
+                
+                self.activityIndicator.stopAnimating()
+                self.addToFavoritesButton.isEnabled = self.currrentResponse != nil
             }
         }
     }

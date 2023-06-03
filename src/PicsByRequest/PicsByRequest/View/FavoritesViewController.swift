@@ -29,6 +29,15 @@ final class FavoritesViewController : UITableViewController {
         viewModel.deleteRowsAction = { [weak self] indexPath in
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
         }
+ 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if (viewModel.favorites.isEmpty) {
+            tableView.separatorStyle = .none
+        } else {
+            tableView.separatorStyle = .singleLine
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
