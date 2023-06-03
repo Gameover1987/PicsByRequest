@@ -4,15 +4,15 @@ import CoreData
 
 protocol FavoriteStorageProtocol {
     
-    var favorites: [ImageByTextEntity] {get}
+    var favorites: [FavoriteEntity] {get}
     
     func addToFavorites(text: String, imageData: Data)
     
-    func removeFromFavorites(favorite: ImageByTextEntity)
+    func removeFromFavorites(favorite: FavoriteEntity)
     
     func addObserver(_ observer: any FavoritesStorageObserverProtocol)
 }
 
 protocol FavoritesStorageObserverProtocol {
-    func didAddToFavorites(favorite: ImageByTextEntity)
+    func didAddToFavorites(favorite: FavoriteEntity)
 }

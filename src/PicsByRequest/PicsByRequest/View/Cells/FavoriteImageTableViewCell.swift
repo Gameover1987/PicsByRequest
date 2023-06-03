@@ -49,11 +49,11 @@ final class FavoriteImageTableViewCell : UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(by imageByText: ImageByTextEntity) {
+    func update(by favorite: FavoriteEntity) {
         
-        guard let image = UIImage(data: imageByText.imageData!) else {return}
+        guard let image = UIImage(data: favorite.imageData!) else {return}
         
         favoriteImageView.image = image
-        textRequestLabel.text = imageByText.text
+        textRequestLabel.text = favorite.text
     }
 }

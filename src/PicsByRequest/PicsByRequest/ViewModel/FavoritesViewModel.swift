@@ -12,13 +12,13 @@ final class FavoritesViewModel {
         self.favorites = storage.favorites
     }
     
-    var favorites: [ImageByTextEntity] = []
+    var favorites: [FavoriteEntity] = []
 
     var favoritesCollectionChangedAction: (() -> Void)?
     
     var deleteRowsAction: ((_ indexPath: IndexPath) -> Void)?
     
-    func removeFromFavorites(favorite: ImageByTextEntity) {
+    func removeFromFavorites(favorite: FavoriteEntity) {
         guard let index = self.storage.favorites.firstIndex(of: favorite) else {return}
         
         self.storage.removeFromFavorites(favorite: favorite)
@@ -31,7 +31,7 @@ final class FavoritesViewModel {
 }
 
 extension FavoritesViewModel : FavoritesStorageObserverProtocol {
-    func didAddToFavorites(favorite: ImageByTextEntity) {
+    func didAddToFavorites(favorite: FavoriteEntity) {
         favorites = storage.favorites
         
         favoritesCollectionChangedAction?()
