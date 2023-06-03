@@ -5,6 +5,8 @@ struct ImageResponse {
     var text: String
     
     var imageData: Data
+    
+    var created: Date
 }
 
 enum ApiErrors : String, Error {
