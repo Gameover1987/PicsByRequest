@@ -2,7 +2,7 @@
 import Foundation
 import CoreData
 
-protocol PicsByRequestStorageProtocol {
+protocol FavoriteStorageProtocol {
     
     var favorites: [ImageByTextEntity] {get}
     

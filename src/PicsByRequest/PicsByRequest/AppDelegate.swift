@@ -12,12 +12,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         
         let picsByRequestViewModel = PicsByRequestViewModel(picsProvider: InternetPicsProvider.shared,
-                                                            storage: CoreDataPicsByRequestStorage.shared)
+                                                            favoriteStorage: CoreDataFavoriteStorage.shared)
         let picsController = PicsByRequestController(viewModel: picsByRequestViewModel);
         picsController.tabBarItem.title = "Pics"
         picsController.tabBarItem.image = UIImage(named: "Gallery")
         
-        let favoritesViewModel = FavoritesViewModel(storage: CoreDataPicsByRequestStorage.shared)
+        let favoritesViewModel = FavoritesViewModel(storage: CoreDataFavoriteStorage.shared)
         let favoritesController = FavoritesViewController(viewModel: favoritesViewModel);
         favoritesController.tabBarItem.title = "Favotites"
         favoritesController.tabBarItem.image = UIImage(named: "Star")

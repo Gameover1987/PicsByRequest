@@ -3,9 +3,9 @@ import Foundation
 
 final class FavoritesViewModel {
     
-    private let storage: PicsByRequestStorageProtocol
+    private let storage: FavoriteStorageProtocol
     
-    init(storage: PicsByRequestStorageProtocol) {
+    init(storage: FavoriteStorageProtocol) {
         self.storage = storage
         
         self.storage.addObserver(self)

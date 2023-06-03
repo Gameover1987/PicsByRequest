@@ -4,14 +4,15 @@ import Foundation
 final class PicsByRequestViewModel {
     
     private let picsProvider: PicsProviderProtocol
-    private let storage: PicsByRequestStorageProtocol
+    private let storage: FavoriteStorageProtocol
     
-    init(picsProvider: PicsProviderProtocol, storage: PicsByRequestStorageProtocol) {
+    init(picsProvider: PicsProviderProtocol, favoriteStorage: FavoriteStorageProtocol) {
         self.picsProvider = picsProvider
-        self.storage = storage
+        self.storage = favoriteStorage
     }
     
     var pictureLoadedAction: ((ImageResponse) -> Void)?
+    var errorAction: ((Error) -> Void)?
     
     func loadPicture(by text: String) {
         self.picsProvider.requestPicture(by: text) { [weak self] result in
@@ -23,7 +24,7 @@ final class PicsByRequestViewModel {
                 pictureLoadedAction?(response)
                 
             case .failure(let error):
-                print(error)
+                errorAction?(error)
             }
         }
     }

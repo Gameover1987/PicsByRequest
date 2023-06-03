@@ -2,9 +2,9 @@
 import Foundation
 import CoreData
 
-final class CoreDataPicsByRequestStorage : PicsByRequestStorageProtocol {
+final class CoreDataFavoriteStorage : FavoriteStorageProtocol {
 
-    static let shared = CoreDataPicsByRequestStorage()
+    static let shared = CoreDataFavoriteStorage()
     
     private static let maxRecordCount = 10
     
@@ -59,7 +59,7 @@ final class CoreDataPicsByRequestStorage : PicsByRequestStorageProtocol {
     }
     
     private func actualizeRecordCount() {
-        if (favorites.count <= CoreDataPicsByRequestStorage.maxRecordCount) {
+        if (favorites.count <= CoreDataFavoriteStorage.maxRecordCount) {
             return
         }
         
