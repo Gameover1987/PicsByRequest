@@ -6,6 +6,8 @@ final class CoreDataPicsByRequestStorage : PicsByRequestStorageProtocol {
 
     static let shared = CoreDataPicsByRequestStorage()
     
+    private static let maxRecordCount = 10
+    
     private var observers: [FavoritesStorageObserverProtocol] = []
     
     private init() {
@@ -37,6 +39,8 @@ final class CoreDataPicsByRequestStorage : PicsByRequestStorageProtocol {
         
         fetchFavorites()
         
+        actualizeRecordCount()
+        
         for observer in observers {
             observer.didAddToFavorites(favorite: imageByTextEntity)
         }
@@ -52,6 +56,14 @@ final class CoreDataPicsByRequestStorage : PicsByRequestStorageProtocol {
         save(in: persistentContainer.viewContext)
         
         fetchFavorites()
+    }
+    
+    private func actualizeRecordCount() {
+        if (favorites.count <= CoreDataPicsByRequestStorage.maxRecordCount) {
+            return
+        }
+        
+        removeFromFavorites(favorite: favorites.last!)
     }
     
     private func getOrCreateImage(by text: String, imageData: Data, in context: NSManagedObjectContext) -> ImageByTextEntity {
