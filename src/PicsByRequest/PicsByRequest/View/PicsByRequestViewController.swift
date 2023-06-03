@@ -11,7 +11,9 @@ final class PicsByRequestController : UIViewController {
         textField.keyboardType = .emailAddress
         textField.layer.cornerRadius = 22
         textField.addTarget(self, action: #selector(searchFieldTextChanged), for: .editingChanged)
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        textField.toAutoLayout()
+        
         return textField
     }()
     
@@ -23,25 +25,45 @@ final class PicsByRequestController : UIViewController {
         button.backgroundColor = Colors.Common.buttonBackground
         button.layer.cornerRadius = 21
         button.addTarget(self, action: #selector(searchButtonTouch), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.toAutoLayout()
+        
         return button
     }()
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.toAutoLayout()
+        
         imageView.layer.cornerRadius = 5
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
+    private lazy var addToFavoritesButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Star"), for: .normal)
+        button.addTarget(self, action: #selector(addToFavoritesButtonTouched), for: .touchUpInside)
+        
+        button.toAutoLayout()
+        
+        return button
+    }()
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        indicator.toAutoLayout()
+        
         return indicator
     }()
     
     private let viewModel: PicsByRequestViewModel
+    
+    private var currrentResponse: ImageResponse?
+    
+    private var addToFavoritesButtonBottomConstraint: NSLayoutConstraint! = nil
     
     init(viewModel: PicsByRequestViewModel) {
         self.viewModel = viewModel
@@ -54,6 +76,8 @@ final class PicsByRequestController : UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         title = "Pics by request"
         view.backgroundColor = Colors.Common.background
         
@@ -62,6 +86,7 @@ final class PicsByRequestController : UIViewController {
         setupConstraints()
         
         searchButton.isEnabled = searchField.hasText
+        addToFavoritesButton.isEnabled = currrentResponse != nil
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -80,17 +105,28 @@ final class PicsByRequestController : UIViewController {
         viewModel.loadPicture(by: searchField.text!)
     }
     
+    @objc
+    private func addToFavoritesButtonTouched() {
+        
+        guard let response = currrentResponse else {return}
+        
+        viewModel.addToFavorites(text: response.text, imageData: response.imageData)
+    }
+    
     private func pictureLoadedAction(response: ImageResponse) {
         DispatchQueue.global().async { [weak self] in
+            self?.currrentResponse = response
             
             if let image = UIImage(data: response.imageData) {
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                    self?.activityIndicator.stopAnimating()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else {return}
+                    
+                    self.imageView.image = image
+                    self.activityIndicator.stopAnimating()
+                    self.addToFavoritesButton.isEnabled = self.currrentResponse != nil
                 }
             }
         }
-        
     }
     
     private func setupConstraints() {
@@ -124,6 +160,15 @@ final class PicsByRequestController : UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
             activityIndicator.widthAnchor.constraint(equalToConstant: 50),
             activityIndicator.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        view.addSubview(addToFavoritesButton)
+        self.addToFavoritesButtonBottomConstraint = addToFavoritesButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+        NSLayoutConstraint.activate([
+            addToFavoritesButton.widthAnchor.constraint(equalToConstant: 50),
+            addToFavoritesButton.heightAnchor.constraint(equalToConstant: 50),
+            addToFavoritesButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
+            self.addToFavoritesButtonBottomConstraint
         ])
     }
 }

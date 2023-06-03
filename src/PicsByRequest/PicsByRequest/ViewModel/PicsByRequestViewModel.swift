@@ -4,9 +4,11 @@ import Foundation
 final class PicsByRequestViewModel {
     
     private let picsProvider: PicsProviderProtocol
+    private let storage: PicsByRequestStorageProtocol
     
-    init(picsProvider: PicsProviderProtocol) {
+    init(picsProvider: PicsProviderProtocol, storage: PicsByRequestStorageProtocol) {
         self.picsProvider = picsProvider
+        self.storage = storage
     }
     
     var pictureLoadedAction: ((ImageResponse) -> Void)?
@@ -24,5 +26,9 @@ final class PicsByRequestViewModel {
                 print(error)
             }
         }
+    }
+    
+    func addToFavorites(text: String, imageData: Data) {
+        storage.addToFavorites(text: text, imageData: imageData)
     }
 }
