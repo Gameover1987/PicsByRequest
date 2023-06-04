@@ -92,6 +92,18 @@ final class PicsByRequestController : UIViewController {
         
         searchButton.isEnabled = searchField.hasText
         addToFavoritesButton.isEnabled = currrentResponse != nil
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -118,6 +130,44 @@ final class PicsByRequestController : UIViewController {
         viewModel.addToFavorites(text: response.text, imageData: response.imageData)
     }
     
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
+    }
+    
+    func moveViewWithKeyboard(notification: NSNotification, keyboardWillShow: Bool) {
+        // Keyboard's size
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let keyboardHeight = keyboardSize.height
+        
+        // Keyboard's animation duration
+        let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        
+        // Keyboard's animation curve
+        let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+        
+        // Change the constant
+        if keyboardWillShow {
+            let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0) // Check if safe area exists
+            let bottomConstant: CGFloat = 5
+            addToFavoritesButtonBottomConstraint.constant = -(keyboardHeight + (safeAreaExists ? 0 : bottomConstant))
+        } else {
+            addToFavoritesButtonBottomConstraint.constant = -16
+        }
+        
+        // Animate the view the same way the keyboard animates
+        let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
+            // Update Constraints
+            self?.view.layoutIfNeeded()
+        }
+        
+        // Perform the animation
+        animator.startAnimation()
+    }
+    
     private func pictureLoadedAction(response: ImageResponse) {
         DispatchQueue.global().async { [weak self] in
             self?.currrentResponse = response
@@ -126,7 +176,6 @@ final class PicsByRequestController : UIViewController {
                 guard let self = self else {return}
                 
                 if let image = UIImage(data: response.imageData) {
-                    let aaa = image.isAccessibilityElement
                     image.isAccessibilityElement = true
                     image.accessibilityIdentifier = "loadedImage"
                     self.imageView.image = image
