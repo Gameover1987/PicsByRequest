@@ -130,11 +130,13 @@ final class PicsByRequestController : UIViewController {
         viewModel.addToFavorites(text: response.text, imageData: response.imageData)
     }
     
-    @objc func keyboardWillShow(_ notification: NSNotification) {
+    @objc
+    func keyboardWillShow(_ notification: NSNotification) {
         moveViewWithKeyboard(notification: notification, keyboardWillShow: true)
     }
     
-    @objc func keyboardWillHide(_ notification: NSNotification) {
+    @objc
+    func keyboardWillHide(_ notification: NSNotification) {
         moveViewWithKeyboard(notification: notification, keyboardWillShow: false)
     }
     
