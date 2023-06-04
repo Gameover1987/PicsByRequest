@@ -18,7 +18,7 @@ final class FavoritesViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Favorites"
+        title = FavoritesLocalizer.title.rawValue.localize(from: .favoritesDictionary)
         view.backgroundColor = Colors.Common.background
         
         tableView.register(FavoriteImageTableViewCell.self, forCellReuseIdentifier: FavoriteImageTableViewCell.identifier)
@@ -29,7 +29,6 @@ final class FavoritesViewController : UITableViewController {
         viewModel.deleteRowsAction = { [weak self] indexPath in
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
         }
- 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +63,7 @@ final class FavoritesViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive,
-                                              title: "Del") { [weak self] ( action, view, completionHandler) in
+                                              title: FavoritesLocalizer.deleteButton.rawValue.localize(from: .favoritesDictionary)) { [weak self] ( action, view, completionHandler) in
             guard let self = self else {return}
             let favorite = self.viewModel.favorites[indexPath.row]
             self.viewModel.removeFromFavorites(favorite: favorite)

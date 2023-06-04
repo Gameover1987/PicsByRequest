@@ -7,7 +7,7 @@ final class PicsByRequestController : UIViewController {
     private lazy var searchField: UITextField = {
         let textField = TextFieldWithPadding()
         textField.accessibilityIdentifier = "searchField"
-        textField.placeholder = "Картинка по запросу"
+        textField.placeholder = PicsByRequestLocalizer.imageRequestPlaceholder.rawValue.localize(from: .requestImageDictionary)
         textField.backgroundColor = Colors.Common.textFieldBackground
         textField.keyboardType = .emailAddress
         textField.layer.cornerRadius = 22
@@ -21,7 +21,7 @@ final class PicsByRequestController : UIViewController {
     private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.accessibilityIdentifier = "searchButton"
-        button.setTitle("Search", for: .normal)
+        button.setTitle(PicsByRequestLocalizer.searchButtonCaption.rawValue.localize(from: .requestImageDictionary), for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
         button.titleLabel?.font = Fonts.forButtons
         button.backgroundColor = Colors.Common.buttonBackground
@@ -80,7 +80,7 @@ final class PicsByRequestController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Pics by request"
+        title = PicsByRequestLocalizer.title.rawValue.localize(from: .requestImageDictionary)
         view.backgroundColor = Colors.Common.background
         
         self.viewModel.pictureLoadedAction = pictureLoadedAction(response:)

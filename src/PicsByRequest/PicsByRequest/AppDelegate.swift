@@ -14,12 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let picsByRequestViewModel = PicsByRequestViewModel(picsProvider: InternetPicsProvider.shared,
                                                             favoriteStorage: CoreDataFavoriteStorage.shared)
         let picsController = PicsByRequestController(viewModel: picsByRequestViewModel);
-        picsController.tabBarItem.title = "Pics"
         picsController.tabBarItem.image = UIImage(named: "Gallery")
         
         let favoritesViewModel = FavoritesViewModel(storage: CoreDataFavoriteStorage.shared)
         let favoritesController = FavoritesViewController(viewModel: favoritesViewModel);
-        favoritesController.tabBarItem.title = "Favotites"
+        favoritesController.tabBarItem.title = FavoritesLocalizer.title.rawValue.localize(from: .favoritesDictionary)
         favoritesController.tabBarItem.image = UIImage(named: "Star")
         
         let tabBarController = UITabBarController()
